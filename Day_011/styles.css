@@ -1,0 +1,209 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background-color: #7e8dbe;
+  font-size: 16;
+  font-family: "Noto Sans JP", sans-serif;
+  font-weight: 400;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  position: relative;
+}
+
+body .container {
+  width: 375px;
+  height: 812px;
+  -ms-scroll-snap-type: x mandatory;
+      scroll-snap-type: x mandatory;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  border-radius: 10px;
+  background-color: #252c4a;
+  -webkit-box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+          box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+body .container section {
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 3rem;
+  width: 375px;
+  height: 812px;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}
+
+body .container section:nth-of-type(odd) {
+  background-color: #252c4a;
+  color: gainsboro;
+}
+
+body .container section:nth-of-type(even) {
+  background-color: #252c4a;
+  color: gainsboro;
+}
+
+body .container section .ques-no {
+  font-size: 1.2em;
+  font-weight: 700;
+  color: #8a93bb;
+  padding-bottom: 1em;
+  border-bottom: 2px dotted #8a93bb;
+}
+
+body .container section .ques-no span {
+  font-size: 0.8em;
+}
+
+body .container section .q-words {
+  color: #fff;
+  text-align: center;
+  font-weight: 700;
+}
+
+body .container section .ques {
+  color: #fffffe;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+body .container section .options {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+body .container section .option {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border: 3px solid #21486b;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 5px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+body .container section .option span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  border: 3px solid #21486b;
+}
+
+body .container section .option:hover, body .container section .option:focus {
+  border-color: #107eeb;
+  color: #fff;
+}
+
+body .container section .option:hover span, body .container section .option:focus span {
+  background-color: #107eeb;
+  border-color: #21486b;
+}
+
+body .container section .correct-option {
+  border-color: darkgreen;
+  color: lightgreen;
+}
+
+body .container section .correct-option span {
+  background-color: darkgreen;
+  border-color: lightgreen;
+}
+
+body .container section .wrong-option {
+  border-color: darkred;
+  color: lightcoral;
+}
+
+body .container section .wrong-option span {
+  background-color: red;
+  border-color: lightcoral;
+}
+
+body .container section .next-btn {
+  width: 40%;
+  background-color: #107eeb;
+  font-size: 1.1em;
+  font-weight: 900;
+  padding: 10px 15px 10px 15px;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+body .container section .next-btn:hover {
+  background-color: #2a8ced;
+}
+
+body .container section .next-btn span {
+  font-weight: bold;
+}
+
+body .container #welcomeSection {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body .container #welcomeSection #title {
+  font-size: 2.5em;
+  font-weight: bolder;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 3em;
+}
+
+body .container #welcomeSection #start-btn {
+  background-color: #107eeb;
+  padding: 10px 20px;
+  width: 40%;
+  font-size: 1.5em;
+  border-radius: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+body .container #welcomeSection #start-btn:hover {
+  background-color: #2a8ced;
+}
+/*# sourceMappingURL=styles.css.map */
