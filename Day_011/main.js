@@ -61,6 +61,7 @@ const questions = {
 };
 
 const containerDiv = document.querySelector(".container");
+var score = 0;
 
 {
   /* DOM Required to append to Container for every Question
@@ -86,6 +87,18 @@ const containerDiv = document.querySelector(".container");
 */
 }
 
+const validateAnswer = (e, options, correctOpt) => {
+  if (e.target.innerText === correctOpt) {
+    e.target.classList.add("correct-option");
+    score++;
+  } else {
+    options.childNodes.forEach((ch) => {
+      if (ch.innerText === correctOpt) ch.classList.add("correct-option");
+      else ch.classList.add("wrong-option");
+    });
+  }
+};
+
 questions.quizlist.forEach((el, ind) => {
   let section = document.createElement("section");
   section.setAttribute("id", ind);
@@ -101,19 +114,24 @@ questions.quizlist.forEach((el, ind) => {
   let optionDiv = document.createElement("div");
   optionDiv.setAttribute("class", "ques");
   optionDiv.innerText = "Above words are associated to?";
-  let correctOpt = el.correct;
+  let correctOpt = el.option[el.correct - 1];
+  let options = document.createElement("div");
   el.option.forEach((opt, ind) => {
     let option = document.createElement("div");
     option.setAttribute("class", `option${ind + 1} option`);
     option.innerHTML = `${opt}<span></span>`;
-    optionDiv.appendChild(option);
+    option.addEventListener("click", (e) =>
+      validateAnswer(e, options, correctOpt)
+    );
+    options.appendChild(option);
   });
+  optionDiv.appendChild(options);
 
   let nextBtn = document.createElement("div");
   nextBtn.setAttribute("class", "next-btn");
   if (ind === questions.quizlist.length - 1) {
     nextBtn.innerHTML = "Submit<span>!</span>";
-    nextBtn.addEventListener("click", () => alert("GG"));
+    nextBtn.addEventListener("click", () => alert(`Your Score: ${score}`));
   } else {
     nextBtn.innerHTML = "Next &nbsp;<span>🠒</span>";
     nextBtn.addEventListener("click", () => (location.href = `#${ind + 1}`));
