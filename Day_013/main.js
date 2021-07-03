@@ -1,26 +1,25 @@
 var questions = null;
 
-const options = {
-  method: "GET",
-  url: "https://twinword-word-association-quiz.p.rapidapi.com/type1/",
-  params: { level: "3", area: "sat" },
-  headers: {
-    "x-rapidapi-key": "260c87c233msh6a5215f4ae9e80dp13f2fbjsn3db32a5584c9",
-    "x-rapidapi-host": "twinword-word-association-quiz.p.rapidapi.com",
-  },
-};
-
-axios
-  .request(options)
-  .then(function (response) {
-    questions = response.data;
-    renderQuestions();
-    let startBtn = document.getElementById("start-btn");
-    startBtn.innerText = "Start";
-    startBtn.setAttribute("disabled", false);
+fetch(
+  "https://twinword-word-association-quiz.p.rapidapi.com/type1/?level=3&area=sat",
+  {
+    method: "GET",
+    headers: {
+      "x-rapidapi-key": "260c87c233msh6a5215f4ae9e80dp13f2fbjsn3db32a5584c9",
+      "x-rapidapi-host": "twinword-word-association-quiz.p.rapidapi.com",
+    },
+  }
+)
+  .then((response) => {
+    response.json().then((res) => {
+      questions = res;
+      renderQuestions();
+      let startBtn = document.getElementById("start-btn");
+      startBtn.innerText = "Start";
+    });
   })
-  .catch(function (error) {
-    console.error(error);
+  .catch((err) => {
+    console.error(err);
   });
 
 const containerDiv = document.querySelector(".container");
