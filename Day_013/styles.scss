@@ -1,0 +1,169 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background-color: #7e8dbe;
+  font-size: 16;
+  font-family: "Noto Sans JP", sans-serif;
+  font-weight: 400;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  position: relative;
+
+  .container {
+    width: 375px;
+    height: 812px;
+    scroll-snap-type: x mandatory;
+    overflow: hidden;
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    background-color: #252c4a;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+
+    section {
+      flex: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 3rem;
+      width: 375px;
+      height: 812px;
+      scroll-snap-align: center;
+      scroll-snap-stop: always;
+
+      &:nth-of-type(odd) {
+        background-color: #252c4a;
+        color: gainsboro;
+      }
+      &:nth-of-type(even) {
+        background-color: #252c4a;
+        color: gainsboro;
+      }
+
+      .ques-no {
+        font-size: 1.2em;
+        font-weight: 700;
+        color: #8a93bb;
+        padding-bottom: 1em;
+        border-bottom: 2px dotted #8a93bb;
+
+        span {
+          font-size: 0.8em;
+        }
+      }
+      .q-words {
+        color: #fff;
+        text-align: center;
+        font-weight: 700;
+      }
+
+      .ques {
+        color: rgb(255, 255, 254);
+        font-weight: 500;
+        margin-bottom: 10px;
+      }
+
+      .options {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .option {
+        display: flex;
+        justify-content: space-between;
+        border: 3px solid #21486b;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 5px;
+        cursor: pointer;
+        font-weight: 700;
+        span {
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+          border-radius: 100%;
+          border: 3px solid #21486b;
+        }
+        &:hover,
+        &:focus {
+          border-color: #107eeb;
+          color: #fff;
+          span {
+            background-color: #107eeb;
+            border-color: #21486b;
+          }
+        }
+      }
+
+      .correct-option {
+        border-color: darkgreen;
+        color: lightgreen;
+        span {
+          background-color: darkgreen;
+          border-color: lightgreen;
+        }
+      }
+      .wrong-option {
+        border-color: darkred;
+        color: lightcoral;
+        span {
+          background-color: red;
+          border-color: lightcoral;
+        }
+      }
+
+      .next-btn {
+        width: 40%;
+        background-color: #107eeb;
+        font-size: 1.1em;
+        font-weight: 900;
+        padding: 10px 15px 10px 15px;
+        border-radius: 10px;
+        text-align: center;
+        cursor: pointer;
+        &:hover {
+          background-color: #2a8ced;
+        }
+
+        span {
+          font-weight: bold;
+        }
+      }
+    }
+
+    #welcomeSection {
+      justify-content: center;
+      align-items: center;
+      #title {
+        font-size: 2.5em;
+        font-weight: bolder;
+        padding: 20px;
+        text-align: center;
+        margin-bottom: 3em;
+      }
+      #start-btn {
+        background-color: #107eeb;
+        padding: 10px 20px;
+        width: 50%;
+        font-size: 1.5em;
+        border-radius: 20px;
+        text-align: center;
+        cursor: pointer;
+        &:hover {
+          background-color: #2a8ced;
+        }
+      }
+    }
+  }
+}
