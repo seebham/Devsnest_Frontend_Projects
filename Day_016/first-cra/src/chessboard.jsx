@@ -7,15 +7,27 @@ const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(8, 1fr);
-  border: 1px solid #000;
   margin: 0 auto;
-  margin-right: 100px;
 `;
 
 const Box = styled.div`
   width: 4vh;
   height: 4vh;
   background-color: ${(props) => (props.isBlack ? "black" : "white")};
+  position: relative;
+  &:hover {
+    :after {
+      content: "";
+      width: 1em;
+      height: 1em;
+      background-color: #ee5ac2;
+      border-radius: 0.5em;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
 `;
 
 let Boxes = [];
