@@ -12,6 +12,10 @@ const AppContainer = styled.div`
 
   display: flex;
   justify-content: center;
+
+  @media only screen and (max-width: 600px) {
+    flex-direction: column-reverse;
+  }
 `;
 
 function App() {
