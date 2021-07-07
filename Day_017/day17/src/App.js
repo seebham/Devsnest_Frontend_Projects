@@ -1,12 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 
+import Calories from "./CalorieCard";
+
 const AppContainer = styled.div`
-  background-color: white;
+  height: 100vh;
+  position: relative;
 `;
 
 function App() {
-  return <AppContainer></AppContainer>;
+  return (
+    <AppContainer>
+      <Calories />
+    </AppContainer>
+  );
 }
 
 export default App;
