@@ -74,7 +74,7 @@ const StyledAddCard = styled(StyledCard)`
   }
 `;
 
-export const Fruit = styled.div`
+export const Item = styled.div`
   font-size: 2em;
   font-weight: 700;
   color: #eeeeee;
@@ -106,7 +106,7 @@ const Input = styled.input`
   }
 `;
 
-const FruitInput = styled(Input)`
+const ItemInput = styled(Input)`
   font-weight: 700;
   color: #eeeeee;
   width: 60%;
@@ -129,68 +129,144 @@ export const CalorieCount = styled.div`
 // Card Component
 export const Card = (props) => {
   const [isEditing, setIsEditing] = React.useState(false);
+  const [editItem, setEditItem] = React.useState("");
+  const [editCal, setEditCal] = React.useState("");
+
+  const ItemNameRef = React.useRef(null);
+  const CalRef = React.useRef(null);
+
+  const handleEditConfirm = () => {
+    if (editItem === null || editItem === "")
+      alert("Item Name can't be empty!");
+    else if (editCal === null || editCal === "" || editCal === 0)
+      alert("Item Calories can't be empty!");
+    else {
+      props.edit(props.id, editItem, parseFloat(editCal));
+      setIsEditing(false);
+    }
+  };
 
   const handleEditing = () => {
     setIsEditing(true);
+    setEditItem(ItemNameRef.current.innerText);
+    setEditCal(CalRef.current.innerText);
   };
   return (
     <StyledCard>
       {isEditing ? (
         <>
-          <FruitInput type="text" placeholder="Fruit Name" autoFocus />
-          <CalorieInput type="number" placeholder="Calories" />
+          <ItemInput
+            type="text"
+            value={editItem}
+            onChange={(e) => setEditItem(e.target.value)}
+            autoFocus
+          />
+          <CalorieInput
+            type="number"
+            value={editCal}
+            onChange={(e) => setEditCal(e.target.value)}
+          />
+          <DelEdBtn>
+            <EditDelBtn onClick={handleEditConfirm}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="feather feather-check"
+              >
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </EditDelBtn>
+          </DelEdBtn>
         </>
       ) : (
         <>
-          <Fruit>{props.fruit}</Fruit>
-          <CalorieCount>{props.calories}</CalorieCount>
+          <Item ref={ItemNameRef}>{props.item}</Item>
+          <CalorieCount ref={CalRef}>{props.calories}</CalorieCount>
+          <DelEdBtn>
+            <EditDelBtn onClick={handleEditing}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="feather feather-edit-2"
+              >
+                <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+              </svg>
+            </EditDelBtn>
+            <EditDelBtn onClick={() => props.del(props.id)}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="feather feather-trash"
+              >
+                <polyline points="3 6 5 6 21 6" />
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+              </svg>
+            </EditDelBtn>
+          </DelEdBtn>
         </>
       )}
-      <DelEdBtn>
-        <EditDelBtn onClick={handleEditing}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="feather feather-edit-2"
-          >
-            <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
-          </svg>
-        </EditDelBtn>
-        <EditDelBtn onClick={() => props.del(props.id)}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="feather feather-trash"
-          >
-            <polyline points="3 6 5 6 21 6" />
-            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-          </svg>
-        </EditDelBtn>
-      </DelEdBtn>
     </StyledCard>
   );
 };
 
-export const AddCalorieCard = (props) => {
+export const AddCalorieCard = ({ addItem }) => {
+  const [item, setitem] = React.useState("Item Name");
+  const [cal, setcal] = React.useState(0);
+
+  const itemInp = React.useRef(null);
+  const calInp = React.useRef(null);
+
+  const handleAdd = () => {
+    //Validation
+    if (item === "" || item === "Item Name") {
+      alert("Enter the Item Name");
+      return;
+    }
+    if (cal === 0 || cal === "" || cal === null) {
+      alert("Enter the calories");
+      return;
+    }
+    addItem(item, cal);
+    setitem("Item Name");
+    setcal(0);
+  };
   return (
     <StyledAddCard>
-      <FruitInput type="text" placeholder="Fruit Name" autoFocus />
-      <CalorieInput type="number" placeholder="Calories" />
-      <DelEdBtn style={{ opacity: 1 }}>
+      <ItemInput
+        ref={itemInp}
+        type="text"
+        value={item}
+        onChange={(e) => setitem(e.target.value)}
+        autoFocus
+      />
+      <CalorieInput
+        ref={calInp}
+        type="number"
+        value={cal}
+        onChange={(e) => setcal(e.target.value)}
+      />
+      <DelEdBtn style={{ opacity: 1 }} onClick={handleAdd}>
         <EditDelBtn>
           <svg
             xmlns="http://www.w3.org/2000/svg"
