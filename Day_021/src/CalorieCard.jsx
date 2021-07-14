@@ -116,8 +116,7 @@ const CalorieInput = styled(Input)`
   font-weight: 500;
   color: #ffd369;
   width: 20%;
-  display: grid;
-  place-items: center;
+  text-align: right;
 `;
 
 export const CalorieCount = styled.div`
