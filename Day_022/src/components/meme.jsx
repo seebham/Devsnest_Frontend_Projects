@@ -40,7 +40,6 @@ const Meme = ({ data, setMeme }) => {
         setMeme({ ...data, url: responseData.data.url });
       });
   };
-  console.log(data.box_count);
   return (
     <MemeBox>
       <MemeImg src={data.url} style={{ height: "50vh" }} />
