@@ -40,6 +40,18 @@ const Meme = ({ data, setMeme }) => {
         setMeme({ ...data, url: responseData.data.url });
       });
   };
+
+  async function downloadImage() {
+    const image = await fetch(data.url);
+    const imageBlog = await image.blob();
+    const imageURL = URL.createObjectURL(imageBlog);
+    const link = document.createElement("a");
+    link.href = imageURL;
+    link.download = data.name;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
   return (
     <MemeBox>
       <MemeImg src={data.url} style={{ height: "50vh" }} />
@@ -59,6 +71,7 @@ const Meme = ({ data, setMeme }) => {
       </div>
       <button onClick={generateMeme}>Create Meme</button>
       <button onClick={() => setMeme(null)}>Choose Template</button>
+      <button onClick={downloadImage}>Download Meme</button>
     </MemeBox>
   );
 };
