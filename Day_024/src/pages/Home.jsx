@@ -1,12 +1,7 @@
 import React from "react";
-import Layout from "./Layout";
 
 const Home = () => {
-  return (
-    <Layout>
-      <div>mast</div>
-    </Layout>
-  );
+  return <div>Home</div>;
 };
 
 export default Home;

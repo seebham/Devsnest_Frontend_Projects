@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 //styled-components
@@ -32,10 +33,17 @@ const LinksDiv = styled.ul`
   width: 60%;
   gap: 8rem;
 `;
-const Links = styled.div``;
+const Links = styled.div`
+  font-size: 1.2rem;
+
+  &:hover {
+    font-weight: bold;
+  }
+`;
 
 const Content = styled.main`
   font-size: 1rem;
+  padding: 1rem;
 `;
 
 const Layout = ({ children }) => {
@@ -45,8 +53,12 @@ const Layout = ({ children }) => {
         <NavBar>
           <Heading>Our Secrets</Heading>
           <LinksDiv>
-            <Links>Home</Links>
-            <Links>Secrets</Links>
+            <Link to="/">
+              <Links>Home</Links>
+            </Link>
+            <Link to="/secrets">
+              <Links>Secrets</Links>
+            </Link>
           </LinksDiv>
         </NavBar>
       </NavBarContainer>
@@ -54,6 +66,10 @@ const Layout = ({ children }) => {
       <Content>{children}</Content>
     </AppContainer>
   );
+};
+
+export const LayoutWrapper = ({ children }) => {
+  return <Layout>{children}</Layout>;
 };
 
 export default Layout;
