@@ -1,8 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
+import { Redirect } from "react-router-dom";
 import { GlobalContext } from "../store";
-import { Redirect } from "react-router";
 
 export const Login = () => {
-  const { dispatch } = useContext(GlobalContext);
+  const { state, dispatch } = useContext(GlobalContext);
+  if (!state.isLoaded) dispatch({ type: "LOADSTATE" });
+  if (state.isAuth) return <Redirect to="/secrets" />;
   return <div onClick={() => dispatch({ type: "LOGIN" })}>Login</div>;
 };

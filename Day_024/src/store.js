@@ -2,11 +2,8 @@ import React, { useReducer } from "react";
 
 //Gobal initialState
 export const initialState = {
-  auth: {
-    isLoaded: false,
-    isAuth: false,
-    authObj: null,
-  },
+  isLoaded: false,
+  isAuth: false,
   theme: {
     light: { background: "#fff" },
     dark: { background: "#111" },
@@ -19,9 +16,15 @@ export const GlobalContext = React.createContext();
 //Global Reducer
 const GlobalReducer = (state = initialState, action) => {
   switch (action.type) {
+    case "LOADSTATE":
+      console.log("loaded");
+      return { ...state, isLoaded: true };
     case "LOGIN":
       console.log("logged in");
-      return { ...state, auth: { isAuth: true, isLoaded: true } };
+      return { ...state, isAuth: true };
+    case "LOGOUT":
+      console.log("logged out");
+      return { ...state, isAuth: false };
     default:
       return state;
   }

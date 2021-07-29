@@ -4,13 +4,12 @@ import { GlobalContext } from "./store";
 
 const ProtectedRoute = ({ children, ...rest }) => {
   const { state } = useContext(GlobalContext);
-  const { auth } = state;
   console.log("Protected Route was called");
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        auth.isAuth ? (
+        state.isAuth ? (
           children
         ) : (
           <Redirect

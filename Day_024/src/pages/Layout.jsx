@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { GlobalContext } from "../store";
 
@@ -43,18 +43,19 @@ const Links = styled.div`
 `;
 
 const Content = styled.main`
+  width: 100vw;
+  height: 100%;
+  display: grid;
+  place-items: center;
   font-size: 1rem;
   padding: 1rem;
 `;
 
 const Layout = ({ children }) => {
-  const { state } = useContext(GlobalContext);
+  const { state, dispatch } = useContext(GlobalContext);
   useEffect(() => {
-    if (state.auth.isAuth) {
-      console.log("Should Redirect to Secrets");
-      <Redirect to="/secrets" />;
-    }
-  }, [state]);
+    setTimeout(() => dispatch({ type: "LOADSTATE" }), 1000);
+  }, [dispatch]);
   return (
     <AppContainer>
       <NavBarContainer>
@@ -67,6 +68,19 @@ const Layout = ({ children }) => {
             <Link to="/secrets">
               <Links>Secrets</Links>
             </Link>
+            {state.isLoaded ? (
+              state.isAuth ? (
+                <Links onClick={() => dispatch({ type: "LOGOUT" })}>
+                  Logout
+                </Links>
+              ) : (
+                <Link to="/login">
+                  <Links>Login</Links>
+                </Link>
+              )
+            ) : (
+              "Loading..."
+            )}
           </LinksDiv>
         </NavBar>
       </NavBarContainer>

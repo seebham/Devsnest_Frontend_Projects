@@ -6,7 +6,7 @@ const Secrets = () => {
   React.useEffect(() => {
     console.log(state);
   }, [state]);
-  return <div>{state.auth.isLoaded}</div>;
+  return <div>There are no secrets!</div>;
 };
 
 export default Secrets;
