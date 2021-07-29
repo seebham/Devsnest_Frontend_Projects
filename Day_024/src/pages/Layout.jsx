@@ -1,6 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { Link, Redirect } from "react-router-dom";
 import styled from "styled-components";
+import { GlobalContext } from "../store";
 
 //styled-components
 const AppContainer = styled.div`
@@ -47,6 +48,13 @@ const Content = styled.main`
 `;
 
 const Layout = ({ children }) => {
+  const { state } = useContext(GlobalContext);
+  useEffect(() => {
+    if (state.auth.isAuth) {
+      console.log("Should Redirect to Secrets");
+      <Redirect to="/secrets" />;
+    }
+  }, [state]);
   return (
     <AppContainer>
       <NavBarContainer>
