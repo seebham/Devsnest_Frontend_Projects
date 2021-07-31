@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = [{ id: 197, todoTitle: "FE THA 27", isDone: false }];
+// state: Array of Obj - Obj:  { id: 197, todoTitle: "FE THA 27", isDone: false }
+const initialState = [];
 
 export const todoSlice = createSlice({
   name: "todo",
