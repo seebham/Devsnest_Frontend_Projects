@@ -1,7 +1,7 @@
 import React from "react";
 
 const Products = () => {
-  return <div className="container lg mx-auto">Products</div>;
+  return <h1 className="text-4xl">Products</h1>;
 };
 
 export default Products;
