@@ -27,7 +27,7 @@ function App() {
             <Redirect to="/" />
           </Switch>
         </Layout>
-        {openCart ? <Cart /> : null}
+        <Cart isOpen={openCart} />
       </main>
     </Router>
   );
