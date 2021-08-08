@@ -9,6 +9,9 @@ export const productsSlice = createSlice({
       state.currentProduct = action.payload[0];
       state.productsArray = action.payload;
     },
+    setCurrentProduct: (state, action) => {
+      state.currentProduct = action.payload;
+    },
   },
 });
 
@@ -18,5 +21,11 @@ export const fetchProducts = () => async (dispatch) => {
   dispatch(setFetchedProducts(res));
 };
 
-export const { setFetchedProducts } = productsSlice.actions;
+export const fetchCurrentProduct = (id) => async (dispatch) => {
+  let req = await fetch(`https://fakestoreapi.com/products/${id}`);
+  let res = await req.json();
+  dispatch(setCurrentProduct(res));
+};
+
+export const { setFetchedProducts, setCurrentProduct } = productsSlice.actions;
 export default productsSlice.reducer;

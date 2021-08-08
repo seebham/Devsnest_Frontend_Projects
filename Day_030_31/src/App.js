@@ -22,7 +22,7 @@ function App() {
             <Route exact path="/about" component={About} />
             <Route path="/products/:id" component={Products} />
             <Route exact path="/products">
-              <Redirect to="/products/0" />
+              <Redirect to="/products/1" />
             </Route>
             <Redirect to="/" />
           </Switch>

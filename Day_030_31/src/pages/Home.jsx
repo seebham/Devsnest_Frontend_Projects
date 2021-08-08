@@ -14,7 +14,7 @@ const Home = () => {
   if (areFetched) console.log(productsArray);
   return (
     <div className="pb-24 px-4">
-      <div className="container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+      <div className="container grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-10 lg:px-28">
         {productsArray.map(({ id, image, title, category, price }) => {
           return (
             <div className="flex flex-row p-4 ring-2 rounded-md" key={id}>
