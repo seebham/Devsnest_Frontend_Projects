@@ -10,7 +10,7 @@ import { toggleCart } from "../store/cartSlice";
 
 const Header = () => {
   const { pathname } = useLocation();
-  const { itemsCount } = useSelector((state) => state.cart);
+  const { cartItemsCount } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const [mbMenu, setMbMenu] = useState(false);
   const linksStyles =
@@ -68,16 +68,13 @@ const Header = () => {
         </nav>
 
         <div className="flex-none text-3xl flex justify-end gap-4 md:w-1/4 md:gap-0">
-          <div className="relative">
-            <ShoppingCartIcon
-              className="h-8"
-              onClick={() => dispatch(toggleCart())}
-            />
-            {itemsCount ? (
-              <span class="absolute top-0 right-0 flex h-4 w-4">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-300 opacity-75"></span>
-                <span class="inline-flex rounded-full h-4 w-4 bg-purple-400 text-white text-xs justify-center">
-                  {itemsCount}
+          <div className="relative" onClick={() => dispatch(toggleCart())}>
+            <ShoppingCartIcon className="h-8" />
+            {cartItemsCount ? (
+              <span className="absolute top-0 right-0 flex h-4 w-4">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-300 opacity-75"></span>
+                <span className="inline-flex rounded-full h-4 w-4 bg-purple-400 text-white text-xs justify-center">
+                  {cartItemsCount}
                 </span>
               </span>
             ) : null}
