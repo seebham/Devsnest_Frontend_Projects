@@ -5,7 +5,7 @@ import { XIcon, ShoppingCartIcon } from "@heroicons/react/outline";
 import { DetailedCard } from "./Cards";
 
 //styles
-const iconsStyles = "h-6 w-6 md:h-8 md:w-8";
+const iconsStyles = "h-6 w-6 md:h-8 md:w-8 ";
 
 export const Cart = ({ isOpen }) => {
   const dispatch = useDispatch();
