@@ -21,7 +21,7 @@ const Quantity = ({ quantity, setter }) => {
   };
 
   const buttonsStyles =
-    "h-6 w-6 md:h-8 md:w-8 grid place-items-center bg-white text-black rounded-full";
+    "h-6 w-6 md:h-8 md:w-8 grid place-items-center bg-white text-black rounded-full cursor-pointer";
   return (
     <div className="flex flex-row justify-center items-center gap-4">
       <div className={buttonsStyles} onClick={() => handleDecrement("dec")}>
