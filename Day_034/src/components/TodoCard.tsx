@@ -5,8 +5,10 @@ import {
   editTodo,
   changeStatus,
   deleteTodo,
-} from "../store/todoSlice.js";
+} from "../store/todoSlice";
 import styled from "styled-components";
+import { ThemeStateTypes } from "../store/themeSlice";
+import { useAppDispatch, useAppSelector } from "../store/store";
 
 export const TodoContainer = styled.div`
   position: absolute;
@@ -50,7 +52,8 @@ export const EditDelBtn = styled.div`
 `;
 
 export const StyledCard = styled.div`
-  background-color: #393e46;
+  background-color: ${({ isDark }: ThemeStateTypes) =>
+    isDark ? "#393e46" : "#eee"};
   width: 80%;
   padding: 1.5em;
   margin-bottom: 2em;
@@ -84,7 +87,8 @@ const StyledAddCard = styled(StyledCard)`
 export const Item = styled.div`
   font-size: 2em;
   font-weight: 700;
-  color: #eeeeee;
+
+  color: ${({ isDark }: ThemeStateTypes) => (isDark ? "#eee" : "#393e46")};
 `;
 
 const Input = styled.input`
@@ -115,7 +119,7 @@ const Input = styled.input`
 
 const ItemInput = styled(Input)`
   font-weight: 700;
-  color: #eeeeee;
+  color: ${({ isDark }: ThemeStateTypes) => (isDark ? "#eee" : "#393e46")};
   width: 60%;
 `;
 
@@ -125,29 +129,37 @@ export const CalorieCount = styled.div`
   color: #ffd369;
 `;
 
+interface CardPropsTypes {
+  id: number;
+  todoTitle: string;
+  todoStatus: boolean;
+}
+
 // Card Component
-export const Card = (props) => {
-  const dispatch = useDispatch();
-  const [isEditing, setIsEditing] = React.useState(false);
-  const [editTodoInput, setEditTodoInp] = React.useState("");
-  const TodoNameRef = React.useRef(null);
+export const Card = ({ id, todoTitle, todoStatus }: CardPropsTypes) => {
+  const dispatch = useAppDispatch();
+  const { isDark } = useAppSelector((state) => state.theme);
+  const [isEditing, setIsEditing] = React.useState<boolean>(false);
+  const [editTodoInput, setEditTodoInp] = React.useState<string>("");
+  const TodoNameRef = React.useRef<HTMLInputElement>(null);
 
   const handleEditing = () => {
     setIsEditing(true);
-    setEditTodoInp(TodoNameRef.current.innerText);
+    if (TodoNameRef.current) {
+      setEditTodoInp(TodoNameRef.current.innerText);
+    }
   };
 
   const handleEditConfirm = () => {
-    if (editTodo === null || editTodo === "")
-      alert("Item Name can't be empty!");
+    if (editTodo === null) alert("Item Name can't be empty!");
     else {
-      dispatch(editTodo({ id: props.id, newTitle: editTodoInput }));
+      dispatch(editTodo({ id: id, newTitle: editTodoInput }));
       setIsEditing(false);
     }
   };
 
   return (
-    <StyledCard>
+    <StyledCard isDark={isDark}>
       {isEditing ? (
         <React.Fragment>
           <ItemInput
@@ -155,8 +167,9 @@ export const Card = (props) => {
             value={editTodoInput}
             onChange={(e) => setEditTodoInp(e.target.value)}
             autoFocus
+            isDark={isDark}
           />
-          <DelEdBtn>
+          <DelEdBtn isDark={isDark} {...DelEdBtn}>
             <EditDelBtn onClick={handleEditConfirm}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -165,7 +178,6 @@ export const Card = (props) => {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="4"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 className="feather feather-check"
@@ -177,12 +189,14 @@ export const Card = (props) => {
         </React.Fragment>
       ) : (
         <React.Fragment>
-          <Item ref={TodoNameRef}>{props.todoTitle}</Item>
+          <Item ref={TodoNameRef} isDark={isDark}>
+            {todoTitle}
+          </Item>
 
-          <DelEdBtn>
-            {props.todoStatus ? null : (
+          <DelEdBtn isDark={isDark} {...DelEdBtn}>
+            {todoStatus ? null : (
               <>
-                <EditDelBtn onClick={() => dispatch(changeStatus(props.id))}>
+                <EditDelBtn onClick={() => dispatch(changeStatus(id))}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -217,7 +231,7 @@ export const Card = (props) => {
                 </EditDelBtn>
               </>
             )}
-            <EditDelBtn onClick={() => dispatch(deleteTodo(props.id))}>
+            <EditDelBtn onClick={() => dispatch(deleteTodo(id))}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -242,7 +256,8 @@ export const Card = (props) => {
 };
 
 export const AddTodoCard = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const { isDark } = useAppSelector((state) => state.theme);
   const [todo, setTodo] = React.useState("Todo Title");
 
   const todoInp = React.useRef(null);
@@ -258,15 +273,21 @@ export const AddTodoCard = () => {
     setTodo("Todo Title");
   };
   return (
-    <StyledAddCard>
+    <StyledAddCard isDark={isDark}>
       <ItemInput
         ref={todoInp}
         type="text"
         value={todo}
         onChange={(e) => setTodo(e.target.value)}
         autoFocus
+        isDark={isDark}
       />
-      <DelEdBtn style={{ opacity: 1 }} onClick={handleAdd}>
+      <DelEdBtn
+        style={{ opacity: 1 }}
+        onClick={handleAdd}
+        isDark={isDark}
+        {...DelEdBtn}
+      >
         <EditDelBtn>
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -1,39 +1,42 @@
 import React, { useState, ReactElement } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import ThemeContext from "./ThemeContext";
-import ThemeToggle from "./ThemeToggle";
 import { TodoContainer, Card, AddTodoCard } from "./components/TodoCard";
+import { TodoState } from "./store/todoSlice";
+import { useAppDispatch, useAppSelector } from "./store/store";
+import { ThemeStateTypes, toggleTheme } from "./store/themeSlice";
 
 const AppContainer = styled.div`
   height: 100vh;
   position: relative;
-  color: ${({ isDark }: any) => (isDark ? "#fff" : "#000")};
-  background-color: ${({ isDark }: any) => (isDark ? "#1b2027" : "#fff")};
+  color: ${({ isDark }: ThemeStateTypes) => (isDark ? "#fff" : "#000")};
+  background-color: ${({ isDark }: ThemeStateTypes) =>
+    isDark ? "#1b2027" : "#fff"};
 `;
 
 const App = (): ReactElement => {
-  const [isDarkTheme, setIsDarkTheme] = useState<boolean>(true);
-  const todos = useSelector((state: any): any => state.todo);
-  console.log(todos);
+  const todos = useAppSelector((state) => state.todo);
+  const { isDark } = useAppSelector((state) => state.theme);
+
+  const dispatch = useAppDispatch();
 
   return (
-    <ThemeContext.Provider value={{ isDarkTheme, setIsDarkTheme }}>
-      <AppContainer className="App" isDark={isDarkTheme} {...AppContainer}>
-        <TodoContainer>
-          <AddTodoCard />
-          {todos.map((todo: any) => (
-            <Card
-              key={todo.id}
-              id={todo.id}
-              todoTitle={todo.todoTitle}
-              todoStatus={todo.isDone}
-            />
-          ))}
-        </TodoContainer>
-        <ThemeToggle />
-      </AppContainer>
-    </ThemeContext.Provider>
+    <AppContainer className="App" isDark={isDark} {...AppContainer}>
+      <TodoContainer>
+        <AddTodoCard />
+        {todos.map((todo: TodoState) => (
+          <Card
+            key={todo.id}
+            id={todo.id}
+            todoTitle={todo.todoTitle}
+            todoStatus={todo.isDone}
+          />
+        ))}
+      </TodoContainer>
+      <button onClick={() => dispatch(toggleTheme())}>
+        {isDark ? "Light" : "Dark"}
+      </button>
+    </AppContainer>
   );
 };
 

@@ -1,7 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 // state: Array of Obj - Obj:  { id: 197, todoTitle: "FE THA 27", isDone: false }
-const initialState = [];
+export interface TodoState {
+  id: number;
+  todoTitle: string;
+  isDone: boolean;
+}
+
+const initialState: Array<TodoState> = [];
 
 export const todoSlice = createSlice({
   name: "todo",
@@ -14,7 +20,7 @@ export const todoSlice = createSlice({
         todoTitle: action.payload,
         isDone: false,
       };
-      return (state = [newItem, ...state]);
+      state.push(newItem);
     },
     editTodo: (state, action) => {
       // payload will be obj: {id, newTitle}
